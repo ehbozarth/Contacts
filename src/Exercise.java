@@ -6,11 +6,14 @@ import java.util.ArrayList;
 public class Exercise {
 
     public static void main(String[] args) {
+        /*
         ArrayList<String> nameList = new ArrayList<>();
         nameList.add("Alice");
         nameList.add("Bob");
         nameList.add("Charlie");
         nameList.add("Austin");
+        */
+        String [] nameList = new String []{"Alice", "Bob", "Charlie", "Austin"};
 
         for(String name : nameList){
 
