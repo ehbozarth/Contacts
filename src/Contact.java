@@ -8,7 +8,6 @@ public class Contact {
     public int age;
 
     public Contact(){
-
     }
 
     public Contact(String name, int age){
@@ -16,4 +15,19 @@ public class Contact {
         this.age = age;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }//End of Contact Class
