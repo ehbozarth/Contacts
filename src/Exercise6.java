@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by earlbozarth on 10/28/15.
@@ -12,15 +14,18 @@ public class Exercise6 {
 
         //Take the first 5 names in
         namesList = new ArrayList(namesList.subList(0,5));
-        System.out.println(namesList);
+        solveViaTempLists(namesList);
+        solveViaDirectModification(namesList);
+        solveViaStream(namesList);
 
-        //Make them upperCase
-        ArrayList<String> tempNames = new ArrayList<>();
-        for(String upperName : namesList){
-            tempNames.add(upperName.toUpperCase());
-        }
-        namesList = tempNames;
-        System.out.println(namesList);
+    }//End of Main Method
+
+    static void solveViaDirectModification(ArrayList<String> namesList){
+        //Make every String upperCase
+        for(int i = 0; i< namesList.size();i++){
+            String s = namesList.get(i).toUpperCase();
+            namesList.set(i,s);
+        }//End of for loop
 
         //Removing names starting with A while looping through list with Iterator
         Iterator<String> it = namesList.iterator();
@@ -29,32 +34,46 @@ public class Exercise6 {
             if(aName.startsWith("A")){
                 it.remove();
             }
-        }
+        }//End of While Loop
 
-        System.out.println(namesList);
+        System.out.println("Direct: " + namesList);
 
-        //Take the first 5 names in one command
-        /*
-        ArrayList<String> newNamesList = new ArrayList<>();
-        int counter = 0;
-        for(String name : namesList){
-            if(counter < 5){
-                newNamesList.add(namesList.get(counter));
-            }
-            counter++;
+    }//End of solveViaDirectModification
+
+    static void solveViaTempLists(ArrayList<String> namesList){
+        //Make every string inside Uppercase
+        ArrayList<String> tempNames = new ArrayList<>();
+        for(String upperName : namesList){
+            tempNames.add(upperName.toUpperCase());
         }//End of For Loop
+        namesList = tempNames;
 
-        System.out.println(newNamesList);
-        //Make every string inside Uppercase(all letters)
-        for(String name: newNamesList){
-            String upperName = newNamesList.toString().toUpperCase();
-            newNamesList.clear();
-            newNamesList.add(upperName);
-        }
-        System.out.println(newNamesList);
-        //Remove ones that start with "A"
-        */
+        //Remove the ones that start with "A"
+        tempNames = new ArrayList<>();
+        for(String aName : namesList){
+            if(!aName.startsWith("A")){
+                tempNames.add(aName);
+            }
+        }//end of For Loop
+        namesList = tempNames;
 
-    }//End of Main Method
+        System.out.println("Temp: " + namesList);
+    }//End of solveViaTempLists
+
+
+    static void solveViaStream(ArrayList<String> nameList){
+        List<String> newNamesList =
+                nameList
+                .stream()
+                .map((name) -> {
+                    return name.toUpperCase();
+                })
+                .filter((name)->{
+                    return !name.startsWith("A");
+                })
+                .collect(Collectors.toList());
+
+        System.out.println("Stream: " + newNamesList);
+    }//End of solveViaStream
 
 }//End of Exercise6 Class
